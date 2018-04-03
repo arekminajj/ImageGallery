@@ -1,17 +1,18 @@
 ﻿
+@model IEnumerable<ImageGallery.Models.Image>
 @{
 	ViewData["Title"] = " Your Images!";
 }
 
 
 <div class="imagescontainer">
-	<div class="imagecontainer">
-		<div class="image">
-			<img src="@Model.Url" width="340" height="340"/> 
+	@foreach (var item in Model)
+	{
+		<div class="imagecontainer">
+			<div class="image">
+				<img src="@item.Url" width="340" height="340"/> 
+			</div>
+			<p class="name">@item.Name</p>
 		</div>
-		<p class="name">@Model.Name</p>
-	</div>
-
-	
-
+	}
 </div>
