@@ -10,7 +10,9 @@
 	{
 		<div class="imagecontainer">
 			<div class="image">
-				<img src="@item.Url" width="340" height="340"/> 
+				<a asp-action="Details" asp-controller="Images" asp-route-id="@item.Id">
+					 <img src="@item.Url" width="340" height="340"/>
+				</a>
 			</div>
 			<p class="name">@item.Name</p>
 		</div>

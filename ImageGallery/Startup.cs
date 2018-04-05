@@ -49,7 +49,7 @@ namespace ImageGallery
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Recipes}/{action=Index}/{id?}");
+                    template: "{controller=Images}/{action=Index}/{id?}");
             });
         }
     }
