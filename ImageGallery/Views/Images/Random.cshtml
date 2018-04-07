@@ -1,0 +1,23 @@
+﻿@model ImageGallery.Models.Image
+@{
+    ViewData["Title"] = "Random Image!";
+}
+
+<div class="randomViewContainer">
+	<br/>
+	<div style="display: inline-block;">
+		<p style="font-size: 30px;">@Model.Created</p>
+		<p style="font-size: 40px;">@Model.Author</p>
+	</div>
+	
+	<br/>
+	<p style="font-size: 60px;">@Model.Name</p>
+	<img src="@Model.Url"/>
+	
+
+	<br/>
+	<div style="width: 600px;">
+		@Model.Description
+	</div>
+</div>
+

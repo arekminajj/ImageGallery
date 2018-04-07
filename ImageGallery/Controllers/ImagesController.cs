@@ -18,12 +18,29 @@ namespace ImageGallery.Controllers
 		    _context = context;
 	    }
 
-        public IActionResult Index()
-        {
-	        return View(_context.Images.ToList());
-        }
+		
+	    public async Task<IActionResult> Index(string searchString)
+	    {
+		    var images = from m in _context.Images
+			    select m;
 
-	    public IActionResult Error()
+		    if (!String.IsNullOrEmpty(searchString))
+		    {
+			    if (searchString.Length > 1)
+			    {
+				    images = images.Where(s => s.Name.Contains(searchString));
+				}
+		    }
+
+		    return View(await images.ToListAsync());
+	    }
+
+		//public IActionResult Index()
+		//{
+		// return View(_context.Images.ToList());
+		//}
+
+		public IActionResult Error()
 	    {
 		    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 	    }
@@ -35,16 +52,11 @@ namespace ImageGallery.Controllers
 	    }
 
 		[HttpGet]
+		[Route("/add-new")]
 	    public IActionResult Create()
 	    {
 		    return View();
 	    }
-
-		//[HttpPost]
-	 //   public IActionResult Post(Image image)
-	 //   {
-		    
-	 //   }
 
 	    [HttpPost]
 	    [ValidateAntiForgeryToken]
@@ -60,6 +72,7 @@ namespace ImageGallery.Controllers
 		    return View(images);
 	    }
 
+	   
 		public async Task<IActionResult> Details(int? id)
 	    {
 		    if (id == null)
@@ -77,23 +90,22 @@ namespace ImageGallery.Controllers
 		    return View(images);
 	    }
 
-		//TODO: Create new better way to do that, this is just for test yet
-		[Route("details/name/{name}")]
-	    public async Task<IActionResult> FindByName(string name)
-	    {
-		    if (name == null)
-		    {
-			    return NotFound();
-		    }
+		[Route("random-image")]
+	    public async Task<IActionResult> Random()
+		{
+			int count = Convert.ToInt32(_context.Images.ToList().Count);
+			Random rnd = new Random();
+			int randomint = rnd.Next(1, count + 1);
 
-		    var nameimages = await _context.Images.SingleOrDefaultAsync(n => n.Name == name);
-		    if (nameimages==null)
-		    {
-			    return NotFound();
-		    }
+			var images = await _context.Images
+				.SingleOrDefaultAsync(m => m.Id == randomint);
 
-		    return View(nameimages);
-	    }
+			if (images == null)
+			{
+				return NotFound();
+			}
 
+			return View(images);
+		}
 	}
 }

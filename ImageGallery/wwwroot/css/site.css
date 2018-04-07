@@ -62,3 +62,18 @@
 	font-size: 20px;
 }
 
+.Add-New-text {
+	font-size: 20px;
+	padding: 10px;
+	color: cadetblue;
+}
+
+.Add-New-text:hover{
+	color: aqua;
+}
+
+.randomViewContainer {
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+}

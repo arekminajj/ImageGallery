@@ -4,14 +4,33 @@
 	ViewData["Title"] = " Your Images!";
 }
 
+<br />
+<div>
+	<div>
+		<form asp-controller="Images" asp-action="Index">
+			<p>
+				Title: <input type="text" name="SearchString">
+				<input type="submit" value="Filter" />
+			</p>
+		</form>
+	</div>
+</div>
+
+
+
+
+<br/><br/>
+<a asp-controller="Images" asp-area="" asp-action="Create" class="Add-New-text">Add new!</a>
+<br/>
 
 <div class="imagescontainer">
+	
 	@foreach (var item in Model)
 	{
 		<div class="imagecontainer">
 			<div class="image">
 				<a asp-action="Details" asp-controller="Images" asp-route-id="@item.Id">
-					 <img src="@item.Url" width="340" height="340"/>
+					<img src="@item.Url" width="340" height="340"/>
 				</a>
 			</div>
 			<p class="name">@item.Name</p>
